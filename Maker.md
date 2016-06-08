@@ -5,10 +5,7 @@ title: Introduction to Maker
 ---
 
 
-Maker
-=====
-
-Quick information
+## Quick information
 -------------------------------
 
 Maker is a Decentralized Autonomous Organization (DAO) that backs the value of the dai stablecoin on the Ethereum blockchain. A DAO is an organization that is entirely blockchain-based using smart contracts to enforce its rules and business logic.

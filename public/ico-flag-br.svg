@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="640px" height="480px" viewBox="0 0 640 480" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <polygon id="Shape" fill="#229E45" points="0 0 640 0 640 480 0 480"></polygon>
+            <polygon id="Shape" fill="#F8E509" points="321.406 435.935 622.889 240.265 319.581 44.065 17.11 240.734 321.406 435.934"></polygon>
+            <path d="M452.77,240.005 C452.77,310.333 395.667,367.345 325.226,367.345 C254.784,367.345 197.682,310.333 197.682,240.005 C197.682,169.677 254.786,112.665 325.226,112.665 C395.668,112.665 452.771,169.677 452.771,240.005 L452.77,240.005 Z" id="Shape" fill="#2B49A3"></path>
+            <g transform="translate(219.000000, 186.000000)"></g>
+            <g transform="translate(235.000000, 186.000000)"></g>
+            <g transform="translate(248.000000, 185.000000)"></g>
+            <g transform="translate(317.000000, 196.000000)"></g>
+            <g transform="translate(330.000000, 200.000000)"></g>
+            <g transform="translate(346.000000, 208.000000)"></g>
+            <g transform="translate(374.000000, 220.000000)"></g>
+            <g transform="translate(424.000000, 255.000000)"></g>
+        </g>
+    </g>
+</svg>
