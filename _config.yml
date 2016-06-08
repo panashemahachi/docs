@@ -1,5 +1,5 @@
 # Permalinks
-permalink:           none
+
 
 # Setup
 title:               Maker
@@ -22,7 +22,10 @@ sass:
 navigation:
 
  - title: Introduction to Maker
-   url: /
+   url: /docs/
+ - title: Introdução à stablecoin Dai e à Maker
+   url: /docs/pt/
+
 
 # About/contact
 author:
