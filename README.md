@@ -24,7 +24,7 @@ $ bundle install
 To see your Jekyll site with Poole applied, start a Jekyll server. In Terminal, from `/docs` (or whatever your Jekyll site's root directory is named):
 
 ```bash
-$ jekyll serve
+$ bundle exec jekyll serve -w
 ```
 
 Open <http://localhost:4000> in your browser, and voilà.
