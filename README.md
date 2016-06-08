@@ -1,6 +1,7 @@
 ##### Maker on SLACK - join us
 ------
-[![Slack Status](http://slack.makerdao.com/badge.svg)](https:/slack.makerdao.com)
+[![Slack Status](https://makerdao.herokuapp.com/badge.svg)](https://makerdao.herokuapp.com/)
+
 
 
 # docs
