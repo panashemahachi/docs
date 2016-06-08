@@ -78,7 +78,7 @@ The stability of the dai around the target price is maintained by modifying the 
 
 Deflation rate adjustments ensure that the dai market price remains stabilized around the target price. When the market price of the dai is below the target price, the deflation rate of the dai increases causing borrowing to become more expensive.  This leads to a corresponding reduction in supply of dai. At the same time, the increased deflation rate causes the capital gains from holding dai to go up, and leads to a corresponding increase in dai demand. This combination of reduced supply and increased demand causes the dai to appreciate in value, pushing it up towards the target price.
 
-The same mechanism works in reverse if the market price is higher than the target price: The deflation rate decreases, leading to an increased demand for borrowing dai and a decreased demand for holding it. This causes the dai to depreciate in value, pushing it down towards the target price.
+The same mechanism works in reverse if the market price is higher than the target price: the deflation rate decreases, leading to an increased demand for borrowing dai and a decreased demand for holding it. This causes the dai to depreciate in value, pushing it down towards the target price.
 
 This mechanism is a negative feedback loop: Deviation away from the target price in one direction increases the force in the opposite direction. The magnitude of the deflation rate adjustments depends on how long the market price remains on the same side of the target price. Longer deviations result in aggressive adjustments, while shorter deviations result in small adjustments.
 
@@ -88,9 +88,9 @@ To directly enforce the target price in the marketplace, a CDP gets liquidated b
 
 In order for Maker to take over the collateral so it can be sold off, *emergency debt* is instantly used to create dai that is backed by the ability of Maker to dilute the MKR supply. A reverse auction is used to find the lowest amount of MKR that needs to be diluted in order to raise enough dai to pay off the emergency debt. This type of auction is called a *debt auction*.
 
-Simultaneously, the collateral is sold off in a continuous splitting auction for dai where all dai proceeds up until the *liquidation penalty* are immediately sent to the Buy&Burn contract. Once enough dai is being bid to cover the liquidation penalty, the auction switches into a reverse auction to try to sell as little collateral as possible; any leftover collateral is returned to the borrower that originally created the CDP.
+Simultaneously, the collateral is sold off in a continuous splitting auction for dai where all dai proceeds up until the *liquidation penalty* are immediately sent to the Buy&Burn contract. Once enough dai has been bid to cover the liquidation penalty, the auction switches into a reverse auction to try to sell as little collateral as possible; any leftover collateral is returned to the borrower that originally created the CDP.
 
->*__Example 4:__ If we assume that Ether has a liquidation ratio of 145%, a penalty ratio of 105%, and an Ether-CDP is outstanding at 150% collateral ratio, the Ether price crashes 10% against the target price. This causes the collateral ratio of the CDP to fall to ~135%. As it falls below its liquidation ratio, traders can trigger its liquidation and begin bidding with dai for buying MKR in the debt auction.  Traders can also begin bidding with dai for buying the ~135 dai worth of collateral in the collateral auction. Once there is at least 105 dai being bid on the Ether collateral, traders reverse bid to take the least amount of collateral for 105 dai and the remainder is returned to the original borrower.
+>*__Example 4:__ If we assume that Ether has a liquidation ratio of 145%, a penalty ratio of 105%, and an Ether-CDP is outstanding at 150% collateral ratio, the Ether price crashes 10% against the target price. This causes the collateral ratio of the CDP to fall to ~135%. As it falls below its liquidation ratio, traders can trigger its liquidation and begin bidding with dai for buying MKR in the debt auction.  Traders can also begin bidding with dai for buying the ~135 dai worth of collateral in the collateral auction. Once there is at least 105 dai being bid on the Ether collateral, traders reverse bid to take the least amount of collateral for 105 dai and the remainder is returned to the original borrower.*
 
 Managing the stability of the system
 ---------------------------------------
@@ -99,19 +99,19 @@ Liquidations aren't guaranteed to be profitable despite always being triggered w
 
 Maker has multiple risk parameters that ensure the system remains stable despite this risk. These parameters are controlled by the governors.
 
-**Stability fee - global**
+**Stability fee**
 
-The stability fee is a global fee paid by every CDP. It is defined as a yearly percentage that is calculated on top of the existing debt of the CDP. When the borrower covers their CDP, the dai used to cover the CDP debt is destroyed, but the dai used to pay the stability fee is sent to the Buy&Burn contract.
+The stability fee is a fee paid by every CDP. It is defined as a yearly percentage that is calculated on top of the existing debt of the CDP. When the borrower covers their CDP, the dai used to cover the CDP debt is destroyed, but the dai used to pay the stability fee is sent to the Buy&Burn contract.
 
-**Debt ceiling - per CDP type**
+**Debt ceiling**
 
 Debt ceiling is the maximum amount of debt that can be created by a single type of CDP. Once enough debt has been created by CDPs of a given type, it becomes impossible to create more unless existing CDPs are closed.
 
-**Liquidation ratio - per CDP type**
+**Liquidation ratio**
 
 Liquidation ratio is the collateralization ratio at which a CDP can be liquidated.
 
-**Penalty ratio - per CDP type**
+**Penalty ratio**
 
 The penalty ratio is used to determined the maximum amount of dai raised from a liquidation auction that goes to Buy&Burn, with the remainder getting returned to the borrower who originally created the CDP.
 
@@ -136,9 +136,9 @@ A keeper can additionally act as an Oracle by providing a price feed, as describ
 
 Another crucial group of external actors that Maker requires to function are price feed oracles. Oracles are mechanisms that provide information from the outside world onto the blockchain for smart contracts to consume. Maker needs information about the market price of the dai and its deviation from the target price in order to adjust the deflation rate. It also needs information about the market price of the various assets used as collateral for the dai in order to know when liquidations can be triggered.
 
-### Custodians: Collateral storage specialists
+### Capital Investment Firms: Dai backed by off-chain collateral
 
-A Custodian is a company (legal entity) that specializes in repackaging legal securities into a format that can be used as collateral for borrowing dai. This is achieved through a smart contract called the *custodian trap* which enables Maker to give the custodian a debt ceiling based on its internal holdings of legal securities. Custodians increase the ability of the system to respond to dai demand shocks.
+Capital Investment Firms (CIFs) are companies (legal entities) that specialize in repackaging legal securities into a format that can be used as collateral for borrowing dai. This is achieved through a smart contract called the *CIF Trap*, which enables Maker to give the CIF a debt ceiling based on its internal holdings of legal securities. CIFs increase the ability of the system to respond to dai demand shocks by borrowing dai and trading it for other assets.
 
 Governance of Maker
 -----------------------------------
