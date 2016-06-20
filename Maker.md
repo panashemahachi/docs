@@ -92,7 +92,7 @@ Simultaneously, the collateral is sold off in a continuous splitting auction for
 Managing the stability of the system
 ---------------------------------------
 
-Liquidations aren't guaranteed to be profitable despite always being triggered when the collateral ratio of the CDP is positive. Slippage or a market crash could cause the liquidation auction to burn less MKR than what was diluted from the debt auction resulting in net loss for Maker and a net increase of the MKR supply.
+Liquidations aren't guaranteed to be profitable even if triggered when the collateral ratio of the CDP is positive. Slippage or a market crash could cause the liquidation auction to burn less MKR than what was diluted from the debt auction resulting in net loss for Maker and a net increase of the MKR supply.
 
 Maker has multiple risk parameters that ensure the system remains stable despite this risk. These parameters are controlled by the governors.
 
