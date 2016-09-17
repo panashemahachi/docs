@@ -22,7 +22,7 @@ Maker is a Decentralized Autonomous Organization (DAO) that backs the value of t
 * [GitHub](https://github.com/makerdao) - Repository of the public Maker code
 * [TeamSpeak](https://ts.makerdao.com/) - For governance meeting conference calls
 * [SoundCloud](https://soundcloud.com/makerdao) - Governance meeting recordings
-* [MakerX](https://mkr.market) - MKR and DAI decentralized exchange
+* [Market](https://mkr.market) - MKR and DAI decentralized exchange
 
 
 Introduction to the dai stablecoin and Maker
