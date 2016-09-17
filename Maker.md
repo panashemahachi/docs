@@ -16,13 +16,13 @@ Maker is a Decentralized Autonomous Organization (DAO) that backs the value of t
 
 #### Quick links
 
-* [Chat](https://makerdao.slack.com) - Primary platform of community interaction
+* [Chat](https://chat.makerdao.com) - Primary platform of community interaction
 * [Forum](https://forum.makerdao.com) - For debate and proposals
 * [Subreddit](https://www.reddit.com/r/makerdao) - Best place to get latest news and links
 * [GitHub](https://github.com/makerdao) - Repository of the public Maker code
 * [TeamSpeak](https://ts.makerdao.com/) - For governance meeting conference calls
 * [SoundCloud](https://soundcloud.com/makerdao) - Governance meeting recordings
-* [MakerX](https://x.makerdao.com) - MKR and DAI decentralized exchange
+* [MakerX](https://mkr.market) - MKR and DAI decentralized exchange
 
 
 Introduction to the dai stablecoin and Maker
@@ -160,7 +160,7 @@ An important part of direct governance is voter organization. To make it as stra
 
 While the contract system allows initiating proposals for vote at any time, during normal conditions it is in practice only done at the governance meeting. If a proposal is initiated for vote outside the social framework of the governance meeting, it indicates either an attack on the system, or a breakdown of the governance framework and a potential governance crisis.
 
-All governance related discussion and debate that doesn't take place in the framework of the governance meeting is referred to as *informal governance*. The Maker Slack chatroom and the Maker forum act as the primary communications platforms for shareholders to discuss and debate all aspects of the DAO and its governance, and for governors to schedule governance meetings.
+All governance related discussion and debate that doesn't take place in the framework of the governance meeting is referred to as *informal governance*. The Maker chatroom and the Maker forum act as the primary communications platforms for shareholders to discuss and debate all aspects of the DAO and its governance, and for governors to schedule governance meetings.
 
 ### Governance in action: from idea to action proposal
 
