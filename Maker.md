@@ -164,7 +164,7 @@ All governance related discussion and debate that doesn't take place in the fram
 
 ### Governance in action: from idea to action proposal
 
-**Informal governance proposal:** A new proposal will first be brought up and discussed on Slack and the forum - in this setting of public and freeflowing information a proposal will be rapidly scrutinized and any obvious objections will be raised immediately by the community. The proposal can then be amended based on input and objections or abandoned.
+**Informal governance proposal:** A new proposal will first be brought up and discussed on chat and the forum - in this setting of public and freeflowing information a proposal will be rapidly scrutinized and any obvious objections will be raised immediately by the community. The proposal can then be amended based on input and objections or abandoned.
 
 **Formal governance proposal:** Once a proposal has been amended to a form that doesn't have any obvious objections, it can move on to formal governance. Formal governance ensures that every governor is present to weigh the proposal as it is presented in formal parlance that emphasizes the use of simple English with live translation to other major languages. If there is input and objections to the proposal they have to be properly articulated, and if necessary the proposal can be delayed until the next governance meeting to allow another week of informal governance. When a proposal no longer has any formal objections or input, an action proposal has to be created and published for scrutiny so that governors can ensure that it properly implements the spirit of the proposal.
 
