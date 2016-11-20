@@ -225,5 +225,5 @@ Properly setting up such a controller requires one to model the market behavior.
 
 Further studies should be carried out by the community on the subject of Dai stability. Possible fields range from simulation of alternative scenarios using the previously described market model and controller, to more advanced market modeling, control and regression techniques.
 
-Code used in this paper has been made available [on GitHub](https://github.com/makerdao/maker-model/tree/5527746d317bece74be459e95b580a07b9a2f553/deflation_sim)
+Code used in this paper has been made available [on GitHub](https://github.com/makerdao/docs/tree/a17fb1110f59905e7dddf2470252f8d02444de11/deflation_sim)
 
