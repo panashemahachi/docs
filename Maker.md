@@ -4,8 +4,8 @@ layout: page
 title: Dai Credit System Simplified, v0.8
 ---
 
-## Quick information
--------------------------------
+Quick information
+===
 
 Maker is a Decentralized Autonomous Organization (DAO) that backs the value of the dai stablecoin on the Ethereum blockchain. A DAO is an organization that is entirely blockchain-based, using smart contracts to enforce its rules and business logic.
 
@@ -26,30 +26,31 @@ Maker is a Decentralized Autonomous Organization (DAO) that backs the value of t
 
 Introduction
 ---
+
 ### The basic mechanics
 
 Dai is a token that is backed by Ethereum tokens as collateral. Any user can create Dai by borrowing against collateral that they lock in the system. The dai-denominated debt and collateral are contained in an object called a Collateralzed Debt Position. 
 
-The solvency of the system is maintained by a set of *Solvency Parameters*, which are controlled by holders of the MKR token. The term "governers" is used to describe the set of actors using MKR tokens to influence security parameters.
+The solvency of the system is maintained by a set of *Solvency Parameters* (sometimes called "Security Parameters"), which are controlled by holders of the MKR token. The term "governers" is used to describe the set of actors using MKR tokens to influence key *Security Parameters*. The term "Maker" is used loosely to mean the role that the MKR subsystem has in the Dai Credit System.
 
 The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via *Rate Feedback Mechanism*. This is a reactive mechanism which absorbs some of the volatility of dai and transfers the risk to the borrowers and governers. Governers can only influence the *Sensitivity Parameter* this mechanism - the target price and rate are ultimately determined by the market and cannot be changed directly.
 
-### Liqidation: Backing the value of dai
+Liqidation and Bailouts
+---
 
 To ensure there is always enough collateral in the system to cover the value of all outstanding dai (according to the target price),
-a CDP can be force liquidated if it is deemed *risky*.
+a CDP can be force liquidated if it is deemed *risky*. This state is computed based on the CDP type's Security Parameters and real-time price information.
 
-Liquidation means Maker takes over the collateral and sells it off in a *continuous splitting auction* (CSA). A CSA is an auction mechanism that is specialized for automatic price discovery.
+Liquidation means the system automatically takes over the collateral and sells it off in an auction contract specialized for automatic price discovery.
 
-In order for Maker to take over the collateral so it can be sold off, *emergency debt* is instantly used to create dai that is backed by the ability of Maker to dilute the MKR supply. A reverse auction is used to find the lowest amount of MKR that needs to be diluted in order to raise enough dai to pay off the emergency debt. This type of auction is called a *debt auction*.
+In order for the system to take over the collateral so it can be sold off, *emergency debt* is instantly used to create dai that is backed by the ability of Maker to dilute the MKR supply. A reverse auction is used to find the lowest amount of MKR that needs to be diluted in order to raise enough dai to pay off the emergency debt. This type of auction is called a *debt auction*.
 
-Simultaneously, the collateral is sold off in a continuous splitting auction for dai where all dai proceeds up until the *liquidation penalty* are immediately sent to the Buy&Burn contract. Once enough dai has been bid to cover the liquidation penalty, the auction switches into a reverse auction to try to sell as little collateral as possible; any leftover collateral is returned to the borrower that originally created the CDP.
+Simultaneously, the collateral is sold off in a continuous splitting auction for dai where all dai proceeds up until the *liquidation penalty* are immediately counted as revenue (and thus automatically funneled to a "Buy and Burn" auction contract). Once enough dai has been bid to cover the liquidation penalty, the auction switches into a reverse auction to try to sell as little collateral as possible; any leftover collateral is returned to the borrower that originally created the CDP.
 
 Liquidations aren't guaranteed to be profitable even if triggered when the collateral ratio of the CDP is positive. Slippage or a market crash could cause the liquidation auction to burn less MKR than what was diluted from the debt auction resulting in net loss for Maker and a net increase of the MKR supply. 
 
 Target Price, Target Rate, and the Sensitivity Parameter
 --------------
-
 
 When the credit system performs any risk calculation, it uses the dai **target price**. The target price is automatically adjusted according to the current **target rate** (often called the "deflation rate" when it is above 1).
 
@@ -67,31 +68,31 @@ The target price and its target rate are not directly influence by MKR governers
 Security Parameters
 ---------------------------------------
 
-The Dai Credit System has multiple Security Parameters (also called Security Parameters). These parameters are controlled by the governance system, which is ultimately controlled by the MKR token.
+The Dai Credit System has multiple Security Parameters (also called Solvency Parameters). These parameters are controlled by the governance system, which is ultimately controlled by the MKR token.
 
-**Stability fee**
-
-The stability fee is a fee paid by every CDP. It is defined as a yearly percentage that is calculated on top of the existing debt of the CDP. When the borrower covers their CDP, the dai used to cover the CDP debt is destroyed, but the dai used to pay the stability fee is sent to the Buy&Burn contract.
-
-A higher stability fee represents a higher expected rate of failure for the entire CDP class (a "black swan" event like a token contract hack).
-
-**Debt ceiling**
+**Debt ceiling (`hat`)**
 
 Debt ceiling is the maximum amount of debt that can be created by a single type of CDP. Once enough debt has been created by CDPs of a given type, it becomes impossible to create more unless existing CDPs are closed.
 
 The debt ceiling is used to ensure sufficient diversification of the collateral portfolio.
 
-**Liquidation ratio**
+**Liquidation ratio (`mat`)**
 
 Liquidation ratio is the collateralization ratio at which a CDP can be liquidated. A lower liquidation ratio means governers expect lower collateral volatility.
 
-**Penalty ratio**
+**Stability fee (`tax`)**
+
+The stability fee is a fee paid by every CDP. It is defined as a yearly percentage that is calculated on top of the existing debt of the CDP. When the borrower covers their CDP, the dai used to cover the CDP debt is destroyed, but the dai used to pay the stability fee is sent to the Buy&Burn contract.
+
+A higher stability fee represents a higher expected rate of failure for the entire CDP class (a "black swan" event like a token contract hack).
+
+**Penalty ratio (`axe`)**
 
 The penalty ratio is used to determined the maximum amount of dai raised from a liquidation auction that goes to Buy&Burn, with excess collateral getting returned to the borrower who originally created the CDP. This is achieved with a two-way auction.
 
 The penalty ratio is used to cover the inefficiency of the liquidation mechanism.
 
-**Limbo Duration**
+**Limbo Duration (`lax`)**
 
 A CDP is in **limbo** when price information for collateral is not available. The limbo **duration** determines how long before all CDPs of that type are considered *risky*.
 
@@ -100,9 +101,9 @@ Governance of Maker
 
 MKR tokens allow users access to vote on a narrow set of actions:
 
-1) Adding valid CDP types (distinct sets of possible Security Parameters you can choose for your CDP).
-2) Modifying existing CDP types (this includes "sunsetting" a CDP type by setting its Debt Ceiling Security Parameter to 0).
-3) Modifying the Sensitivity Parameter
+1) `form`: Add new CDP type (distinct set of possible Security Parameters you can choose to open your CDP)
+2) `mold`: Modify existing CDP types (this includes "sunsetting" a CDP type by setting its Debt Ceiling Security Parameter to 0).
+3) `frob`: Modify the Sensitivity Parameter
 
 In other words, governers do not and cannot directly control the “monetary policy” of dai as it is typically understood (e.g. they cannot easily take actions to target a fixed inflation rate like a central bank). Dai obtains an automated equilibrium depending characteristics of the collateral portfolio, which is also largely market driven.
 
