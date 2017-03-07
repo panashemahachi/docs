@@ -8,7 +8,7 @@ title: Introduction to Maker
 ## Quick information
 -------------------------------
 
-Maker is a Decentralized Autonomous Organization (DAO) that backs the value of the dai stablecoin on the Ethereum blockchain. A DAO is an organization that is entirely blockchain-based using smart contracts to enforce its rules and business logic.
+Maker is a Decentralized Autonomous Organization (DAO) that backs the value of the dai stablecoin on the Ethereum blockchain. A DAO is an organization that is entirely blockchain-based, using smart contracts to enforce its rules and business logic.
 
 **Dai** is a stablecoin used for trade and transfers on Ethereum. A stablecoin is a cryptocurrency with price stability.
 
@@ -50,13 +50,13 @@ The remaining undistributed 578,103 MKR were given to the Maker Fund. The Maker 
 
 ### The basic mechanics
 
-The target price of the dai is denominated in Special Drawing Rights (SDR) - an international currency basket maintained by the IMF that has low volatility against all major world currencies. When the dai is launched, the value of 1 DAI will be pegged to an initial target price of 1 USD worth of SDR at [the exchange rate reported by the IMF](https://www.imf.org/external/np/fin/data/rms_sdrv.aspx). After launch, the dai will detach from this initial target and start to slowly fluctuate against the SDR. It will have a bias towards deflation under normal conditions over the long term while maintaining low volatility in the short term.
+The target price of the dai is denominated in Special Drawing Rights (SDR) - an international currency basket maintained by the IMF that has low volatility against all major world currencies. When the dai is launched, the value of 1 DAI will be pegged to an initial target price of 1 USD worth of SDR at [the exchange rate reported by the IMF](https://www.imf.org/external/np/fin/data/rms_sdrv.aspx) - for example, `1 DAI = 0.7251 SDR`. After launch, the dai will detach from this initial target and start to slowly fluctuate against the SDR.
 
-Borrowing new dai is done by locking an amount of collateral inside a CDP smart contract.  The CDP then sends newly borrowed dai to the borrower's wallet while also creating a corresponding amount of debt. Over time, the CDP accrues a stability fee ,"interest", which is added on top of the debt. The borrower can retrieve the posted collateral by *covering* the debt plus the stability fee accrued since the CDP was created. All stability fees from CDPs go into the Buy&Burn contract.
+The Dai system is centered around the concept of a **Collateralized Debt Position**. Creating new dai is done by locking some quantity of collateral tokens in a contract called the **CDP Engine**.
+A CDP's owner can *issue* (borrow) dai as long as there is sufficient excess collateral - that is, the **market price** of the collateral exceeds some multiple the of the current debt, denominated in dai **target price**.
+The issuer pays a **stability fee** (an interest rate), which is funneled to the buy-and-burn auction. Interest is always processed before the principal can be adjusted.
 
 >*__Example 1:__ Bob wants to borrow 100 dai. He locks an amount of ETH worth significantly more than 100 dai into a CDP and uses it to borrow 100 dai. The 100 dai is instantly sent directly to his Ethereum account. Assuming that the stability fee is 0.5% per year, over the coming year Bob will need 100.5 dai to cover the CDP if he decides to retrieve his ETH after one year.*
-
-The deflationary nature of the dai means that the market value (measured in SDR) of the debt also increases over time.  This adds an additional cost to borrowing beyond the stability fee. The dai deflation is a transfer of value from dai borrowers to dai holders, while the stability fee is a transfer of value from dai borrowers to MKR owners.
 
 One of the primary use cases of CDPs is margin trading by borrowers.
 
@@ -66,51 +66,67 @@ Although CDPs are not fungible with each other, the ownership of a CDP is transf
 
 >*__Example 3:__ Alice and Bob collaborate using an Ethereum OTC contract to issue 100 SDR worth of dai backed by ETH. Alice contributes 50 SDR worth of ETH, while Bob contributes 100 SDR worth. The OTC contract takes the funds and creates a CDP, thus borrowing 100 SDR worth of dai. The newly borrowed dai are automatically sent to Bob. From Bob's point of view, he is buying 100 SDR worth of dai by paying the equivalent value in ETH. The contract then transfers ownership of the CDP to Alice. She ends up with 100 SDR worth of debt (denominated in dai) and 150 SDR worth of collateral (denominated in ETH). Since she started with only 50 SDR worth of ETH, she is now 3x long ETH/SDR.*
 
-How Maker keeps the dai stable
-------------------------------
 
-The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via *deflation rate adjustment*.
+### Liqidation: Backing the value of dai
 
-### Low volatility through targeting a deflation rate determined by the market
+To ensure there is always enough collateral in the system to cover the value of all outstanding dai (according to the target price),
+a CDP can be force liquidated if it is deemed *risky*.
 
-Deflation rate adjustments ensure that the dai market price remains stabilized around the target price. When the market price of the dai is below the target price, the deflation rate of the dai increases causing borrowing to become more expensive.  This leads to a corresponding reduction in supply of dai. At the same time, the increased deflation rate causes the capital gains from holding dai to go up, and leads to a corresponding increase in dai demand. This combination of reduced supply and increased demand causes the dai to appreciate in value, pushing it up towards the target price.
-
-The same mechanism works in reverse if the market price is higher than the target price: the deflation rate decreases, leading to an increased demand for borrowing dai and a decreased demand for holding it. This causes the dai to depreciate in value, pushing it down towards the target price.
-
-This mechanism is a negative feedback loop: Deviation away from the target price in one direction increases the force in the opposite direction. The magnitude of the deflation rate adjustments depends on how long the market price remains on the same side of the target price. Longer deviations result in aggressive adjustments, while shorter deviations result in small adjustments.
-
-### Enforcing the target price: Liquidation
-
-To directly enforce the target price in the marketplace, a CDP gets liquidated by Maker if it hits its *liquidation ratio*. Liquidation means Maker takes over the collateral and sells it off in a *continuous splitting auction* (CSA). A CSA is an auction mechanism that is specialized for automatic price discovery.
+Liquidation means Maker takes over the collateral and sells it off in a *continuous splitting auction* (CSA). A CSA is an auction mechanism that is specialized for automatic price discovery.
 
 In order for Maker to take over the collateral so it can be sold off, *emergency debt* is instantly used to create dai that is backed by the ability of Maker to dilute the MKR supply. A reverse auction is used to find the lowest amount of MKR that needs to be diluted in order to raise enough dai to pay off the emergency debt. This type of auction is called a *debt auction*.
 
 Simultaneously, the collateral is sold off in a continuous splitting auction for dai where all dai proceeds up until the *liquidation penalty* are immediately sent to the Buy&Burn contract. Once enough dai has been bid to cover the liquidation penalty, the auction switches into a reverse auction to try to sell as little collateral as possible; any leftover collateral is returned to the borrower that originally created the CDP.
 
+Liquidations aren't guaranteed to be profitable even if triggered when the collateral ratio of the CDP is positive. Slippage or a market crash could cause the liquidation auction to burn less MKR than what was diluted from the debt auction resulting in net loss for Maker and a net increase of the MKR supply. 
+
 >*__Example 4:__ If we assume that Ether has a liquidation ratio of 145%, a penalty ratio of 105%, and an Ether-CDP is outstanding at 150% collateral ratio, the Ether price crashes 10% against the target price. This causes the collateral ratio of the CDP to fall to ~135%. As it falls below its liquidation ratio, traders can trigger its liquidation and begin bidding with dai for buying MKR in the debt auction.  Traders can also begin bidding with dai for buying the ~135 dai worth of collateral in the collateral auction. Once there is at least 105 dai being bid on the Ether collateral, traders reverse bid to take the least amount of collateral for 105 dai and the remainder is returned to the original borrower.*
 
-Managing the stability of the system
----------------------------------------
 
-Liquidations aren't guaranteed to be profitable even if triggered when the collateral ratio of the CDP is positive. Slippage or a market crash could cause the liquidation auction to burn less MKR than what was diluted from the debt auction resulting in net loss for Maker and a net increase of the MKR supply.
+### Target Price Feedback: Dampening the volatility of dai by reacting to market rates
+---
 
-Maker has multiple risk parameters that ensure the system remains stable despite this risk. These parameters are controlled by the governors.
+When Maker performs any risk calculation, it uses the dai **target price**. The target price is automatically adjusted according to the current **target rate** (often called the "deflation rate" when it is above 1).
+
+The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via **target rate adjustment**.
+
+Target rate adjustments ensure that the dai market price remains stabilized around the target price. When the market price of the dai is below the target price, the deflation rate of the dai increases causing borrowing to become more expensive.  This leads to a corresponding reduction in supply of dai. At the same time, the increased deflation rate causes the capital gains from holding dai to go up, and leads to a corresponding increase in dai demand. This combination of reduced supply and increased demand causes the dai to appreciate in value, pushing it up towards the target price.
+
+The same mechanism works in reverse if the market price is higher than the target price: the deflation rate decreases, leading to an increased demand for borrowing dai and a decreased demand for holding it. This causes the dai to depreciate in value, pushing it down towards the target price.
+
+This mechanism is a negative feedback loop: Deviation away from the target price in one direction increases the force in the opposite direction. The magnitude of the deflation rate adjustments depends on how long the market price remains on the same side of the target price. Longer deviations result in aggressive adjustments, while shorter deviations result in small adjustments.
+
+Models for this mechanism can be found HERE TODO.
+
+
+CDP Type Parameters
+---
 
 **Stability fee**
 
 The stability fee is a fee paid by every CDP. It is defined as a yearly percentage that is calculated on top of the existing debt of the CDP. When the borrower covers their CDP, the dai used to cover the CDP debt is destroyed, but the dai used to pay the stability fee is sent to the Buy&Burn contract.
 
+A higher stability fee represents a higher expected rate of failure for the entire CDP class (a "black swan" event like a token contract hack).
+
 **Debt ceiling**
 
 Debt ceiling is the maximum amount of debt that can be created by a single type of CDP. Once enough debt has been created by CDPs of a given type, it becomes impossible to create more unless existing CDPs are closed.
 
+The debt ceiling is used to ensure sufficient diversification of the collateral portfolio.
+
 **Liquidation ratio**
 
-Liquidation ratio is the collateralization ratio at which a CDP can be liquidated.
+Liquidation ratio is the collateralization ratio at which a CDP can be liquidated. A lower liquidation ratio means governers expect lower collateral volatility.
 
 **Penalty ratio**
 
-The penalty ratio is used to determined the maximum amount of dai raised from a liquidation auction that goes to Buy&Burn, with the remainder getting returned to the borrower who originally created the CDP.
+The penalty ratio is used to determined the maximum amount of dai raised from a liquidation auction that goes to Buy&Burn, with excess collateral getting returned to the borrower who originally created the CDP. This is achieved with a two-way auction.
+
+The penalty ratio is used to cover the inefficiency of the liquidation mechanism.
+
+**Limbo Duration**
+
+A CDP is in **limbo** when price information for collateral is not available. The limbo **duration** determines how long before all CDPs of that type are considered *risky*.
 
 How external agents assist Maker
 --------------------------------
