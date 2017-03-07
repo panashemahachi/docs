@@ -49,6 +49,17 @@ Simultaneously, the collateral is sold off in a continuous splitting auction for
 
 Liquidations aren't guaranteed to be profitable even if triggered when the collateral ratio of the CDP is positive. Slippage or a market crash could cause the liquidation auction to burn less MKR than what was diluted from the debt auction resulting in net loss for Maker and a net increase of the MKR supply. 
 
+CDP States and Lifecycle
+---
+
+* `pride`: Overcollateralized ("safe")
+* `anger`: Safe but at debt ceiling
+* `worry`: Missing Price Information (grace period)
+* `panic`: Undercollateralized ("risky"), can be marked for liquidation
+* `grief`: CDP marked for liquidation ("starts" liquidation; collateral is frozen)
+* `dread`: Liquidation in progress
+
+
 Target Price, Target Rate, and the Sensitivity Parameter
 --------------
 
@@ -63,6 +74,7 @@ The same mechanism works in reverse if the market price is higher than the targe
 This mechanism is a negative feedback loop: Deviation away from the target price in one direction increases the force in the opposite direction. The magnitude of the deflation rate adjustments depends on how long the market price remains on the same side of the target price. Longer deviations result in aggressive adjustments, while shorter deviations result in small adjustments.
 
 The target price and its target rate are not directly influence by MKR governers, which can only set the feedback mechanism’s Sensitivity Parameter. This parameter dictates how quickly the target rate can change in response to dai target/market price deviation, which allows tuning the rate of feedback to the scale of the system.
+
 
 
 Security Parameters
@@ -99,10 +111,10 @@ A CDP is in **limbo** when price information for collateral is not available. Th
 Governance of Maker
 -----------------------------------
 
-MKR tokens allow users access to vote on a narrow set of actions:
+MKR tokens allow users access to vote to perform a narrow set of "governance" actions:
 
 1) `form`: Add new CDP type (distinct set of possible Security Parameters you can choose to open your CDP)
-2) `mold`: Modify existing CDP types (this includes "sunsetting" a CDP type by setting its Debt Ceiling Security Parameter to 0).
+2) `mold`: Modify existing CDP types (this includes "sunsetting" a CDP type by setting its Debt Ceiling to 0, or forcing settlement by setting the Liquidation Ratio and Liquidation Penalty to 0).
 3) `frob`: Modify the Sensitivity Parameter
 
 In other words, governers do not and cannot directly control the “monetary policy” of dai as it is typically understood (e.g. they cannot easily take actions to target a fixed inflation rate like a central bank). Dai obtains an automated equilibrium depending characteristics of the collateral portfolio, which is also largely market driven.
