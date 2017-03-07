@@ -1,9 +1,8 @@
 ---
 permalink: /
 layout: page
-title: Introduction to Maker
+title: Dai Credit System Simplified, v0.8
 ---
-
 
 ## Quick information
 -------------------------------
@@ -25,49 +24,21 @@ Maker is a Decentralized Autonomous Organization (DAO) that backs the value of t
 * [Market](https://mkr.market) - MKR and DAI decentralized exchange
 
 
-Introduction to the dai stablecoin and Maker
-------------------------------------
-
-### Dai and Maker
-
-Dai is a stablecoin on Ethereum. Maker is the organization that backs the dai's stability by regulating its collateral requirements.
-
-New dai enter the money supply when a *borrower* borrows dai by posting collateral with Maker. The collateral is held in a smart contract called a Collateralized Debt Position (CDP). A CDP is used to back the value of the dai in a fully transparent manner that anyone can verify.
-
-Any Ethereum account is free to borrow dai without any requirements or restrictions beyond posting and maintaining adequate collateral. Dai borrowing has no term limits, and borrowers can open and cover CDPs at any time.
-
-Dai *holders* buy dai from borrowers and use it as a stablecoin for transactions on Ethereum as well as a long-term store of value.
-
-### MKR, the share of Maker
-
-MKR is the name of the token that acts as shares in the Maker DAO. The price of MKR depends on the performance of the dai.
-
-All dai borrowers pay a *stability fee* which is funneled to MKR owners with Buy&Burn. Buy&Burn means using income to buy up MKR and permanently destroying them. In return, Maker acts as a market maker of last resort that automatically liquidates risky CDPs.
-
-The total MKR supply starts at 1,000,000 MKR. Before deployment of the system, 421,897 MKR (42.1897%) were distributed to founders and early buyers.
-
-The remaining undistributed 578,103 MKR were given to the Maker Fund. The Maker Fund is a smart contract separate from the core system that holds money on behalf of the Maker DAO. It is controlled temporarily by MKR owners who participate in governance, called *governors*.
-
+Introduction
+---
 ### The basic mechanics
 
-The target price of the dai is denominated in Special Drawing Rights (SDR) - an international currency basket maintained by the IMF that has low volatility against all major world currencies. When the dai is launched, the value of 1 DAI will be pegged to an initial target price of 1 USD worth of SDR at [the exchange rate reported by the IMF](https://www.imf.org/external/np/fin/data/rms_sdrv.aspx) - for example, `1 DAI = 0.7251 SDR`. After launch, the dai will detach from this initial target and start to slowly fluctuate against the SDR.
+Dai is a token that is backed by Ethereum tokens as collateral. Any user can create Dai by borrowing against collateral that they lock in the system. The dai-denominated debt and collateral are contained in an object called a Collateralzed Debt Position. 
 
-The Dai system is centered around the concept of a **Collateralized Debt Position**. Creating new dai is done by locking some quantity of collateral tokens in a contract called the **CDP Engine**.
-A CDP's owner can *issue* (borrow) dai as long as there is sufficient excess collateral - that is, the **market price** of the collateral exceeds some multiple the of the current debt, denominated in dai **target price**.
-The issuer pays a **stability fee** (an interest rate), which is funneled to the buy-and-burn auction. Interest is always processed before the principal can be adjusted.
-
->*__Example 1:__ Bob wants to borrow 100 dai. He locks an amount of ETH worth significantly more than 100 dai into a CDP and uses it to borrow 100 dai. The 100 dai is instantly sent directly to his Ethereum account. Assuming that the stability fee is 0.5% per year, over the coming year Bob will need 100.5 dai to cover the CDP if he decides to retrieve his ETH after one year.*
-
-One of the primary use cases of CDPs is margin trading by borrowers.
-
->*__Example 2:__ Bob wishes to go margin long on the ETH/DAI pair, so he borrows 100 SDR worth of dai by posting 150 SDR worth of ETH to a CDP. He then buys another 100 SDR worth of ETH with his newly borrowed dai putting him at a net 1.66x ETH/SDR exposure. He’s free to do whatever he wants with the 100 SDR worth of ETH he obtained by selling the dai, while the original ETH collateral (150 SDR worth) remains locked until the debt plus the stability fee is covered.*
-
-Although CDPs are not fungible with each other, the ownership of a CDP is transferable. This allows CDPs to be used in smart contracts that perform more complex methods of borrowing (for example, involving more than one actor).
-
->*__Example 3:__ Alice and Bob collaborate using an Ethereum OTC contract to issue 100 SDR worth of dai backed by ETH. Alice contributes 50 SDR worth of ETH, while Bob contributes 100 SDR worth. The OTC contract takes the funds and creates a CDP, thus borrowing 100 SDR worth of dai. The newly borrowed dai are automatically sent to Bob. From Bob's point of view, he is buying 100 SDR worth of dai by paying the equivalent value in ETH. The contract then transfers ownership of the CDP to Alice. She ends up with 100 SDR worth of debt (denominated in dai) and 150 SDR worth of collateral (denominated in ETH). Since she started with only 50 SDR worth of ETH, she is now 3x long ETH/SDR.*
+The solvency of the system is maintained by a set of *Solvency Parameters*, which are controlled by holders of the MKR token. The term "governers" is used to describe the set of actors using MKR tokens to influence security parameters.
 
 
+
+<<<<<<< Updated upstream
 ### Liqidation: Backing the value of dai
+=======
+The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via *target rate adjustment*.
+>>>>>>> Stashed changes
 
 To ensure there is always enough collateral in the system to cover the value of all outstanding dai (according to the target price),
 a CDP can be force liquidated if it is deemed *risky*.
@@ -80,13 +51,10 @@ Simultaneously, the collateral is sold off in a continuous splitting auction for
 
 Liquidations aren't guaranteed to be profitable even if triggered when the collateral ratio of the CDP is positive. Slippage or a market crash could cause the liquidation auction to burn less MKR than what was diluted from the debt auction resulting in net loss for Maker and a net increase of the MKR supply. 
 
->*__Example 4:__ If we assume that Ether has a liquidation ratio of 145%, a penalty ratio of 105%, and an Ether-CDP is outstanding at 150% collateral ratio, the Ether price crashes 10% against the target price. This causes the collateral ratio of the CDP to fall to ~135%. As it falls below its liquidation ratio, traders can trigger its liquidation and begin bidding with dai for buying MKR in the debt auction.  Traders can also begin bidding with dai for buying the ~135 dai worth of collateral in the collateral auction. Once there is at least 105 dai being bid on the Ether collateral, traders reverse bid to take the least amount of collateral for 105 dai and the remainder is returned to the original borrower.*
+Target Price, Target Rate, and the Sensitivity Parameter
+--------------
 
-
-### Target Price Feedback: Dampening the volatility of dai by reacting to market rates
----
-
-When Maker performs any risk calculation, it uses the dai **target price**. The target price is automatically adjusted according to the current **target rate** (often called the "deflation rate" when it is above 1).
+When the credit system performs any risk calculation, it uses the dai **target price**. The target price is automatically adjusted according to the current **target rate** (often called the "deflation rate" when it is above 1).
 
 The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via **target rate adjustment**.
 
@@ -96,11 +64,13 @@ The same mechanism works in reverse if the market price is higher than the targe
 
 This mechanism is a negative feedback loop: Deviation away from the target price in one direction increases the force in the opposite direction. The magnitude of the deflation rate adjustments depends on how long the market price remains on the same side of the target price. Longer deviations result in aggressive adjustments, while shorter deviations result in small adjustments.
 
-Models for this mechanism can be found HERE TODO.
+The target price and its target rate are not directly influence by MKR governers, which can only set the feedback mechanism’s Sensitivity Parameter. This parameter dictates how quickly the target rate can change in response to dai target/market price deviation, which allows tuning the rate of feedback to the scale of the system.
 
 
-CDP Type Parameters
----
+Security Parameters
+---------------------------------------
+
+The Dai Credit System has multiple Security Parameters (also called Security Parameters). These parameters are controlled by the governance system, which is ultimately controlled by the MKR token.
 
 **Stability fee**
 
@@ -128,6 +98,33 @@ The penalty ratio is used to cover the inefficiency of the liquidation mechanism
 
 A CDP is in **limbo** when price information for collateral is not available. The limbo **duration** determines how long before all CDPs of that type are considered *risky*.
 
+Governance of Maker
+-----------------------------------
+
+MKR tokens allow users access to vote on a narrow set of actions:
+
+1) Adding valid CDP types (distinct sets of possible Security Parameters you can choose for your CDP).
+2) Modifying existing CDP types (this includes "sunsetting" a CDP type by setting its Debt Ceiling Security Parameter to 0).
+3) Modifying the Sensitivity Parameter
+
+In other words, governers do not and cannot directly control the “monetary policy” of dai as it is typically understood (e.g. they cannot easily take actions to target a fixed inflation rate like a central bank). Dai obtains an automated equilibrium depending characteristics of the collateral portfolio, which is also largely market driven.
+
+Examples
+---
+
+>*__Example 1:__ Bob wants to borrow 100 dai. He locks an amount of ETH worth significantly more than 100 dai into a CDP and uses it to borrow 100 dai. The 100 dai is instantly sent directly to his Ethereum account. Assuming that the stability fee is 0.5% per year, over the coming year Bob will need 100.5 dai to cover the CDP if he decides to retrieve his ETH after one year.*
+
+One of the primary use cases of CDPs is margin trading by borrowers.
+
+>*__Example 2:__ Bob wishes to go margin long on the ETH/DAI pair, so he borrows 100 SDR worth of dai by posting 150 SDR worth of ETH to a CDP. He then buys another 100 SDR worth of ETH with his newly borrowed dai putting him at a net 1.66x ETH/SDR exposure. He’s free to do whatever he wants with the 100 SDR worth of ETH he obtained by selling the dai, while the original ETH collateral (150 SDR worth) remains locked until the debt plus the stability fee is covered.*
+
+Although CDPs are not fungible with each other, the ownership of a CDP is transferable. This allows CDPs to be used in smart contracts that perform more complex methods of borrowing (for example, involving more than one actor).
+
+>*__Example 3:__ Alice and Bob collaborate using an Ethereum OTC contract to issue 100 SDR worth of dai backed by ETH. Alice contributes 50 SDR worth of ETH, while Bob contributes 100 SDR worth. The OTC contract takes the funds and creates a CDP, thus borrowing 100 SDR worth of dai. The newly borrowed dai are automatically sent to Bob. From Bob's point of view, he is buying 100 SDR worth of dai by paying the equivalent value in ETH. The contract then transfers ownership of the CDP to Alice. She ends up with 100 SDR worth of debt (denominated in dai) and 150 SDR worth of collateral (denominated in ETH). Since she started with only 50 SDR worth of ETH, she is now 3x long ETH/SDR.*
+
+>*__Example 4:__ If we assume that Ether has a liquidation ratio of 145%, a penalty ratio of 105%, and an Ether-CDP is outstanding at 150% collateral ratio, the Ether price crashes 10% against the target price. This causes the collateral ratio of the CDP to fall to ~135%. As it falls below its liquidation ratio, traders can trigger its liquidation and begin bidding with dai for buying MKR in the debt auction.  Traders can also begin bidding with dai for buying the ~135 dai worth of collateral in the collateral auction. Once there is at least 105 dai being bid on the Ether collateral, traders reverse bid to take the least amount of collateral for 105 dai and the remainder is returned to the original borrower.*
+
+
 How external agents assist Maker
 --------------------------------
 
@@ -149,39 +146,11 @@ A keeper can additionally act as an Oracle by providing a price feed, as describ
 
 Another crucial group of external actors that Maker requires to function are price feed oracles. Oracles are mechanisms that provide information from the outside world onto the blockchain for smart contracts to consume. Maker needs information about the market price of the dai and its deviation from the target price in order to adjust the deflation rate. It also needs information about the market price of the various assets used as collateral for the dai in order to know when liquidations can be triggered.
 
-### Capital Investment Firms: Dai backed by off-chain collateral
+Misc: Design goals
+---
 
-Capital Investment Firms (CIFs) are companies (legal entities) that specialize in repackaging legal securities into a format that can be used as collateral for borrowing dai. This is achieved through a smart contract called the *CIF Trap*, which enables Maker to give the CIF a debt ceiling based on its internal holdings of legal securities. CIFs increase the ability of the system to respond to dai demand shocks by borrowing dai and trading it for other assets.
+This design is the result of almost 2 years of iterating on collateralized stablecoin designs. We take every opportunity we see to make reductions and simplifications based on things that are theoretically equivalent under a rational incentive analysis. For example, profit for MKR holders is represented as buy-and-burn rather than dividends. This later ended up yielding massive returns when it enabled us to massively simplify the CDP lifecycle and liquidation processes.
 
-Governance of Maker
------------------------------------
+Another design goal was to ensure all operations were constant space and time. This introduced some challenges as the system simulates multiple sets of contiuously growing or shrinking balances and most state is actually function of multiple real-time variables.
 
-### The voting process
 
-*Direct governance* means controlling Maker directly through voting with an Ethereum account that holds MKR. An account gets a vote for each MKR token held. MKR owners who actively vote and participate in governance are called *governors*. A simple majority vote has full authority of the system to change the voting rules, alter the business logic, spend money from the Fund, and lock down Maker's smart contracts as the system matures.
-
-There are four major phases when governors exercise direct governance over Maker through the voting process.
-
-**The first phase** is deploying and publishing the *action proposal*, a smart contract that will change the status quo of Maker if it gets executed by directly modifying the state of its smart contracts.
-
-**The second phase** is *initiating* the action proposal for public vote by the governors. This enables governors to vote on the action proposal with their MKR and starts the expiration timer of the action proposal.
-
-**The third phase** is the voting process. Voting is done according to the voting rules of the system, that themselves are modifiable until they are locked down by the governance process. Each action proposal has an expiration time after which it is automatically abandoned.
-
-**The fourth phase** is execution of the *action*, the transaction that modifies the state of the Maker smart contracts.
-
-### Voter organization
-
-An important part of direct governance is voter organization. To make it as straightforward as possible for governors to coordinate their votes and discuss action proposals, a weekly *formal governance meeting* is held as a conference call using the TeamSpeak platform, currently defined to happen every Sunday at 15:00 GMT.
-
-While the contract system allows initiating proposals for vote at any time, during normal conditions it is in practice only done at the governance meeting. If a proposal is initiated for vote outside the social framework of the governance meeting, it indicates either an attack on the system, or a breakdown of the governance framework and a potential governance crisis.
-
-All governance related discussion and debate that doesn't take place in the framework of the governance meeting is referred to as *informal governance*. The Maker chatroom and the Maker forum act as the primary communications platforms for shareholders to discuss and debate all aspects of the DAO and its governance, and for governors to schedule governance meetings.
-
-### Governance in action: from idea to action proposal
-
-**Informal governance proposal:** A new proposal will first be brought up and discussed on chat and the forum - in this setting of public and freeflowing information a proposal will be rapidly scrutinized and any obvious objections will be raised immediately by the community. The proposal can then be amended based on input and objections or abandoned.
-
-**Formal governance proposal:** Once a proposal has been amended to a form that doesn't have any obvious objections, it can move on to formal governance. Formal governance ensures that every governor is present to weigh the proposal as it is presented in formal parlance that emphasizes the use of simple English with live translation to other major languages. If there is input and objections to the proposal they have to be properly articulated, and if necessary the proposal can be delayed until the next governance meeting to allow another week of informal governance. When a proposal no longer has any formal objections or input, an action proposal has to be created and published for scrutiny so that governors can ensure that it properly implements the spirit of the proposal.
-
-**Direct governance vote:** When the action proposal is considered ready for vote, it is initiated by the proposer and governors can begin the process of voting for or against it. As mentioned above, the initiation has to be done during the governance meeting or it is considered either an attack or a governance crisis. The process of voting extends beyond the governance meeting where it was proposed, allowing plenty of time for every governor to vote even if they weren't present.
