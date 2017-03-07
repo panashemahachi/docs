@@ -32,13 +32,9 @@ Dai is a token that is backed by Ethereum tokens as collateral. Any user can cre
 
 The solvency of the system is maintained by a set of *Solvency Parameters*, which are controlled by holders of the MKR token. The term "governers" is used to describe the set of actors using MKR tokens to influence security parameters.
 
+The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via *Rate Feedback Mechanism*. This is a reactive mechanism which absorbs some of the volatility of dai and transfers the risk to the borrowers and governers. Governers can only influence the *Sensitivity Parameter* this mechanism - the target price and rate are ultimately determined by the market and cannot be changed directly.
 
-
-<<<<<<< Updated upstream
 ### Liqidation: Backing the value of dai
-=======
-The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via *target rate adjustment*.
->>>>>>> Stashed changes
 
 To ensure there is always enough collateral in the system to cover the value of all outstanding dai (according to the target price),
 a CDP can be force liquidated if it is deemed *risky*.
@@ -53,6 +49,7 @@ Liquidations aren't guaranteed to be profitable even if triggered when the colla
 
 Target Price, Target Rate, and the Sensitivity Parameter
 --------------
+
 
 When the credit system performs any risk calculation, it uses the dai **target price**. The target price is automatically adjusted according to the current **target rate** (often called the "deflation rate" when it is above 1).
 
