@@ -7,7 +7,7 @@ title: Dai Credit System Simplified, v0.8
 Quick information
 ===
 
-Maker is a Decentralized Autonomous Organization (DAO) that backs the value of the dai stablecoin on the Ethereum blockchain. A DAO is an organization that is entirely blockchain-based, using smart contracts to enforce its rules and business logic.
+The Dai Credit System is a network of contracts that backs the value of the dai stablecoin on the Ethereum blockchain.
 
 **Dai** is a stablecoin used for trade and transfers on Ethereum. A stablecoin is a cryptocurrency with price stability.
 
@@ -67,11 +67,11 @@ When the credit system performs any risk calculation, it uses the dai **target p
 
 The stability of the dai around the target price is maintained by modifying the incentives for borrowing and holding Dai via **target rate adjustment**.
 
-Target rate adjustments ensure that the dai market price remains stabilized around the target price. When the market price of the dai is below the target price, the deflation rate of the dai increases causing borrowing to become more expensive.  This leads to a corresponding reduction in supply of dai. At the same time, the increased deflation rate causes the capital gains from holding dai to go up, and leads to a corresponding increase in dai demand. This combination of reduced supply and increased demand causes the dai to appreciate in value, pushing it up towards the target price.
+Target rate adjustments ensure that the dai market price remains stabilized around the target price. When the market price of the dai is below the target price, the target rate of the dai increases causing borrowing to become more expensive.  This leads to a corresponding reduction in supply of dai. At the same time, the increased target rate causes the capital gains from holding dai to go up, and leads to a corresponding increase in dai demand. This combination of reduced supply and increased demand causes the dai to appreciate in value, pushing it up towards the target price.
 
-The same mechanism works in reverse if the market price is higher than the target price: the deflation rate decreases, leading to an increased demand for borrowing dai and a decreased demand for holding it. This causes the dai to depreciate in value, pushing it down towards the target price.
+The same mechanism works in reverse if the market price is higher than the target price: the target rate decreases, leading to an increased demand for borrowing dai and a decreased demand for holding it. This causes the dai to depreciate in value, pushing it down towards the target price.
 
-This mechanism is a negative feedback loop: Deviation away from the target price in one direction increases the force in the opposite direction. The magnitude of the deflation rate adjustments depends on how long the market price remains on the same side of the target price. Longer deviations result in aggressive adjustments, while shorter deviations result in small adjustments.
+This mechanism is a negative feedback loop: Deviation away from the target price in one direction increases the force in the opposite direction. The magnitude of the target rate adjustments depends on how long the market price remains on the same side of the target price. Longer deviations result in aggressive adjustments, while shorter deviations result in small adjustments.
 
 The target price and its target rate are not directly influence by MKR governers, which can only set the feedback mechanism’s Sensitivity Parameter. This parameter dictates how quickly the target rate can change in response to dai target/market price deviation, which allows tuning the rate of feedback to the scale of the system.
 
@@ -154,7 +154,7 @@ A keeper can additionally act as an Oracle by providing a price feed, as describ
 
 ### Oracles: Providing external price feeds
 
-Another crucial group of external actors that Maker requires to function are price feed oracles. Oracles are mechanisms that provide information from the outside world onto the blockchain for smart contracts to consume. Maker needs information about the market price of the dai and its deviation from the target price in order to adjust the deflation rate. It also needs information about the market price of the various assets used as collateral for the dai in order to know when liquidations can be triggered.
+Another crucial group of external actors that Maker requires to function are price feed oracles. Oracles are mechanisms that provide information from the outside world onto the blockchain for smart contracts to consume. Maker needs information about the market price of the dai and its deviation from the target price in order to adjust the target rate. It also needs information about the market price of the various assets used as collateral for the dai in order to know when liquidations can be triggered.
 
 Misc: Design goals
 ---
