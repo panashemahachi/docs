@@ -5,8 +5,8 @@ title: Dai Credit System Simplified, v0.8
 ---
 
 #The Dai Credit System
-##https://dai.foundation/
-###Rune Christensen, Nikolai Mushegian, Kenny Rowe, Andy Milenius, Ryan Zurrer
+**https://dai.foundation/**
+**Rune Christensen, Nikolai Mushegian, Kenny Rowe, Andy Milenius, Ryan Zurrer**
 
 
 *This is a condensed overview of the Dai Credit System as defined in the “Purple Paper”: https://github.com/makerdao/faker/blob/master/doc/MakerDao900.pdf (TODO permanent link). The Purple Paper is a formal specification and reference implementation that is modified by an RFC process.*
