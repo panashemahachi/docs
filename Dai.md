@@ -199,7 +199,8 @@ The Dai Credit System was designed to solve the crucial problem of stable exchan
 **Risk Parameters:** The variables that determine when the Dai Credit System automatically judges a CDP to be Risky, allowing Keepers to liquidate it.
 
 **Sensitivity Parameter:** The variable that determines how aggressively the Dai Credit System automatically changes the Target Rate in response to Dai market price deviations
-Target Rate Feedback Mechanism: means the way the Dai Credit System adjusts the Target Rate to cause market forces to maintain stability around the Target Rate.
+
+**Target Rate Feedback Mechanism**: means the way the Dai Credit System adjusts the Target Rate to cause market forces to maintain stability around the Target Rate.
 
 [1]https://www.reddit.com/r/ethereum/comments/30f98i/introducing_edollar_the_ultimate_stable coin_built/?st=ixi8hyd7&sh=d995d720
 [2] https://blog.makerdao.com/2016/12/02/2017-product-roadmap/
