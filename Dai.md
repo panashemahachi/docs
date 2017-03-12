@@ -6,6 +6,7 @@ title: Dai Credit System Simplified, v0.8
 
 #The Dai Credit System
 **https://dai.foundation/**
+
 **Rune Christensen, Nikolai Mushegian, Kenny Rowe, Andy Milenius, Ryan Zurrer**
 
 
