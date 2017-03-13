@@ -22,7 +22,7 @@ Friedrich Hayek suggested that the most successful, privately issued money in an
 
 While there is a range of projects in the blockchain space aiming to create a cryptocurrency with price stability, the majority use a centralized custodian of the funds or some kind of trusted third party, which erases many of the benefits offered by the decentralized applications they are used on. Thus, for a price-stable cryptocurrency to fit coherently into the decentralized stack known as Web3[1], such a token must adhere to the principles of decentralization.
 
-Since Dai is meant to be a global cryptocurrency, it cannot be 1:1 with an existing fiat currency. That is, because governments manipulate their own currencies to serve the needs of their citizens. Dai will instead be free-floating and slightly deflationary while using the Special drawing rights (SDR)[2] as an external reference for stability.
+Since Dai is meant to be a global cryptocurrency, it cannot be 1:1 with an existing fiat currency. That is, because governments manipulate their own currencies to serve the needs of their citizens. Dai will instead be free-floating and slightly deflationary while using the Special Drawing Rights (SDR)[2] as an external reference for stability. The SDR can be manipulated by the International Monetary Fund, but it's designed to be less volatile.
 
 [1] http://gavwood.com/dappsweb3.html
 [2] https://en.wikipedia.org/wiki/Special_drawing_rights
