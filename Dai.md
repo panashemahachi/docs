@@ -18,11 +18,14 @@ The Dai Credit System is a decentralized platform that backs the value of Dai: a
  
 ##Introduction
 
-Hayek postulated that the most successful, privately issued money in an economy of competing private currencies would be the one with the most stable value, i.e. the one that has least volatility against a consumer price index. A cryptocurrency with price stability is a crucial component of the blockchain economy, because the majority of interesting Decentralized Applications require a stable medium of exchange to be usable. Popular cryptocurrencies and digital assets such as Bitcoin (BTC) and Ether (ETH) are far too volatile to let individuals and businesses plan their activities appropriately with the confidence that the value that is in their wallet today will be roughly the value that is in their wallet tomorrow. As such it will be necessary to have a cryptocurrency with price stability before widespread adoption of blockchain technology can happen.
+Friedrich Hayek suggested that the most successful, privately issued money in an economy of competing private currencies would be the one with the most stable value, i.e. the one that has least volatility against a consumer price index. A cryptocurrency with price stability is a crucial component of the blockchain economy, because the majority of interesting Decentralized Applications require a stable medium of exchange to be usable. Popular cryptocurrencies and digital assets such as Bitcoin (BTC) and Ether (ETH) are far too volatile to let individuals and businesses plan their activities appropriately with the confidence that the value that is in their wallet today will be roughly the value that is in their wallet tomorrow. As such it will be necessary to have a cryptocurrency with price stability before widespread adoption of blockchain technology can happen.
 
-While there is a range of projects in the blockchain space aiming to create cryptocurrency with price stability, the majority use a centralized custodian of the funds or some kind of trusted third party, which erases many of the benefits offered by the decentralized applications they are used on. Thus, for a price-stable cryptocurrency to fit coherently into the decentralized stack known as Web3[1], such a token must adhere to the principles of decentralization.
+While there is a range of projects in the blockchain space aiming to create a cryptocurrency with price stability, the majority use a centralized custodian of the funds or some kind of trusted third party, which erases many of the benefits offered by the decentralized applications they are used on. Thus, for a price-stable cryptocurrency to fit coherently into the decentralized stack known as Web3[1], such a token must adhere to the principles of decentralization.
+
+Since Dai is meant to be a global cryptocurrency, it cannot be 1:1 with an existing fiat currency. That is, because governments manipulate their own currencies to serve the needs of their citizens. Dai will instead be free-floating and slightly deflationary while using the Special drawing rights (SDR)[2] as an external reference for stability.
 
 [1] http://gavwood.com/dappsweb3.html
+[2] https://en.wikipedia.org/wiki/Special_drawing_rights
 
 
 ##The Basic Mechanics & Economic Thesis of the Dai Credit System
